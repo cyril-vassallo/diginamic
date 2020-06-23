@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACCOR live Limitless</title>
+  </link>
+</head>
+
+<body>
+  <header></header>
+  <main>
+    <section>
+      <h2>Réserver cet hôtel</h2>
+      <form action="./formHotel.html" method="post">
+        <fieldset>
+          <legend>Choix des dates</legend>
+          <label for="arrival">Arrivée</label>
+          <input type="date" name="arrival" id="arrival">
+          <label for="departure">Départ</label>
+          <input type="date" name="departure" id="departure">
+        </fieldset>
+        <fieldset>
+          <legend>La réservation</legend>
+          <label for="rooms">Chambre(s)</label>
+          <select name="rooms" id="rooms">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
+          <label for="adults">Adulte(s)</label>
+          <select name="adults" id="adults">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+          </select>
+          <label for="children">Enfants(s)</label>
+          <select name="children" id="children">
+            <option value="0" selected>0</option>
+            <option value="1">1</option>
+          </select>
+        </fieldset>
+        <button type="submit">VOIR LES TARIFS</button>
+      </form>
+    </section>
+  </main>
+  <footer></footer>
+</body>
+
+</html>

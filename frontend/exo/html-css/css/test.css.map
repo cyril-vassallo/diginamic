@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAQA,AACI,IADA,CACA,CAAC,CAAC;EACE,KAAK,ECVI,MAAM;EDGnB,MAAM,ECDD,IAAI,CACH,GAAG,CADJ,IAAI,CACH,GAAG;CDSR;;AAJL,AAMI,IANA,CAMA,EAAE,CAAC;EACC,KAAK,ECdE,KAAK;CDef",
+    "sources": [
+        "../sass/test.scss",
+        "../sass/variables.scss"
+    ],
+    "names": [],
+    "file": "test.css"
+}

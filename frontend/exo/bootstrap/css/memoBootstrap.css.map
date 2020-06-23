@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,IAAI,CAAA;EACA,gBAAgB,EAAG,IAAI;EACvB,KAAK,EAAC,KAAK;CACd;;AAED,AAAA,CAAC,CAAC;EACE,MAAM,EAAE,eAAe;CAE1B",
+    "sources": [
+        "../sass/memoBootstrap.scss"
+    ],
+    "names": [],
+    "file": "memoBootstrap.css"
+}

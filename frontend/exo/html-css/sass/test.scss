@@ -1,0 +1,17 @@
+@import 'variables';
+
+@mixin my-1($width, $noWidth){
+    margin: $width $noWidth $width $noWidth; 
+}
+
+
+body {
+    p {
+        color: $primary-color;
+        @include my-1 ($width, $noWidth);
+    }
+
+    h1 {
+        color: $title-color
+    }
+}

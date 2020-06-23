@@ -1,0 +1,8 @@
+header>h1>img[alt="M"] {
+    height:50px
+}
+
+header>h1>img[alt=""] {
+    height: 40px;
+}
+

@@ -1,0 +1,145 @@
+/* Général */
+
+body {
+    font-family: arial, serif;
+  }
+  
+  .bg-grey {
+    background-color: #6B747D;
+  }
+  
+  .display-none {
+    display: none;
+  }
+  
+  .sr-only {
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+    z-index: -1000;
+  }
+  
+  .clear-fix {
+    clear: both;
+  }
+  
+  .clear-fix-after:after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+  
+  :root {
+    --main-bg-color: #6B747D;
+  }
+  
+  .main-bg-color {
+    background-color: var(--main-bg-color);
+  }
+  
+  /* titres */
+  
+  h1 {
+    font-size: 4rem;
+    text-align: center;
+    background-color: #6B747D;
+    color: white;
+    padding: 10px 0;
+  }
+  
+  h1 img {
+    height: 4rem;
+    /* la taille de la lettre M à la racine */
+    width: 4rem;
+    /* 16px */
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin: 20px 0;
+  }
+  
+  h3 {
+    font-size: 1.6rem;
+    margin: 15px 0;
+  }
+  
+  /* navigation */
+  
+  nav {
+    display: table;
+    margin: 10px auto;
+  }
+  
+  nav ul li {
+    display: inline;
+  }
+  
+  nav ul li a {
+    padding: 20px 20px;
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    border-radius: 8px;
+    margin: 0 15px;
+    background-color: var(--main-bg-color);
+  }
+  
+  /* les colonnes */
+  #columns {
+    width: 100vw;
+    overflow-x: auto;
+  }
+  #wrapper-columns {
+    min-width: 400vw;
+  }
+  .column {
+    float: left;
+    width: 95vw;
+    margin: 0 2.5vw;
+    background-color: whitesmoke;
+  }
+  
+  /* cartes */
+  
+  .column article {
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 0 0 30px 0;
+    background-color: var(--main-bg-color);
+  }
+  
+  /* footer */
+  
+  footer {
+    padding: 30px;
+    color: white;
+    text-align: center;
+  }
+  
+  /* media queries */
+  
+  /* Pour des écrans plus grand que 768px */
+  
+  @media screen and (min-width: 768px) {
+    /* les colonnes */
+    #columns {
+      width: auto;
+    }
+
+    
+    #wrapper-columns {
+      min-width: auto;
+    }
+    .column {
+      float: left;
+      width: 23%;
+      margin: 0 1%;
+    }
+  }
