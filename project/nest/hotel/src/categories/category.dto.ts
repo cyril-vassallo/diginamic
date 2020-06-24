@@ -28,4 +28,9 @@ export class CategoryDto {
 
   @IsOptional()
   data: CategoryData;
+
+  get rooms(): string[] {
+    return this.data?.rooms || [];
+  }
 }
+

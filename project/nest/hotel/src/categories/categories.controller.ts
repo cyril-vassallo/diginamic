@@ -4,7 +4,7 @@ import { Category } from './category.entity';
 import { CategoryDto } from './category.dto';
 
 @Controller('admin/categories')
-@UsePipes(new ValidationPipe({whitelist: true, forbidNonWhitelisted:true}))
+@UsePipes(new ValidationPipe({whitelist: true, forbidNonWhitelisted:true, transform:true}))
 export class CategoriesController {
     constructor(private categoriesService: CategoriesService){}
 

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { CategoriesController } from './categories/categories.controller';
-import { CategoriesService } from './categories/categories.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Category } from './categories/category.entity';
 import { CategoriesModule } from './categories/categories.module';
+import { PeriodsModule } from './periods/periods.module';
+import { Period } from './periods/period.entity';
 
 
 @Module({
@@ -14,9 +14,9 @@ import { CategoriesModule } from './categories/categories.module';
     username: "hotel",
     password: "hotel",
     database: "hoteldb",
-    entities: [Category],
-    synchronize:false
-  }), CategoriesModule],
+    entities: [Category, Period],
+    synchronize:true
+  }), CategoriesModule, PeriodsModule],
   controllers: [],
   providers: [],
 })

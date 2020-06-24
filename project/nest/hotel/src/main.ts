@@ -7,13 +7,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
   const options = new DocumentBuilder()
-  .setTitle('Nest Customer API description')
-  .setDescription('The customer API description')
+  .setTitle('Nest Hotel API description')
+  .setDescription('The Hotel API description')
   .setVersion('1.0')
-  .addTag('Customer')
+  .addTag('Categories')
+  .addTag('Periods')
   .build();
 const document = SwaggerModule.createDocument(app, options);
 SwaggerModule.setup('api', app, document);
-  await app.listen(8000);
+  await app.listen(3000);
 }
 bootstrap();
