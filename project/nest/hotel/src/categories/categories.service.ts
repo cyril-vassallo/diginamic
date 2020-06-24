@@ -55,7 +55,7 @@ export class CategoriesService {
         const occurrence: number[] = allRooms.map(room => allRooms.filter(r => r === room ).length)
         const hasDuplicated: boolean = occurrence.some(occ => occ > 1)
         if(hasDuplicated){
-            throw new HttpException('Roms already has been asign to a category', HttpStatus.BAD_REQUEST);
+            throw new HttpException('Roms already has been assigned to a category', HttpStatus.BAD_REQUEST);
         }
     }
 

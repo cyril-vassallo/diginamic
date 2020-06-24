@@ -15,7 +15,7 @@ export class Period {
     @Column({name : 'category_id'})
     categoryId: number;
 
-    @ManyToOne(target => Category) //*
+    @ManyToOne(target => Category) 
     @JoinColumn({name: 'category_id'})
     category: Category
 
