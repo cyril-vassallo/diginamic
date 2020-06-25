@@ -19,10 +19,10 @@ export class Period {
     @JoinColumn({name: 'category_id'})
     category: Category
 
-    @Column({name: 'start_name', type: 'date'})
+    @Column({name: 'start_date', type: 'date'})
     startDate:string;
 
-    @Column({name: 'end_name', type: 'date'})
+    @Column({name: 'end_date', type: 'date'})
     endDate:string;
 
     @Column({type: 'json'})

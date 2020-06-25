@@ -1,79 +1,78 @@
+  
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { Period } from './period.entity';
-import { Repository, InsertResult } from 'typeorm';
-import { PeriodDto } from './period.dto';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, DeleteResult, UpdateResult, InsertResult } from 'typeorm';
+import { Period } from './period.entity';
+import { PeriodDto } from './period.dto';
 
 @Injectable()
 export class PeriodsService {
-    constructor(@InjectRepository(Period) private periodsRepository: Repository<Period>){
+
+    constructor(@InjectRepository(Period) 
+                private periodRepository: Repository<Period>) {
     }
 
-    async searchAll(options?: {startDate?: string, endDate?: string, categoryId: number, ignorePeriodId?:number}): Promise<Period[]> {
-        let query = this.periodsRepository.createQueryBuilder('period');
-        if(options?.startDate){
-            query = query.andWhere('period.endDate >= :startDate', {startDate:options.startDate})
-        }       
-        if(options?.endDate){
-            query = query.andWhere('period.startDate <= :endDate', {endDate:options.endDate})
+    async searchAll(options?: {startDate?: string, endDate?: string, categoryId?: number, ignorePeriodId?: number}): Promise<Period[]> {
+        let query = this.periodRepository.createQueryBuilder('period');
+        if (options?.startDate) {
+            query = query.andWhere('period.endDate >= :startDate', {startDate: options.startDate});
         }
-        if(options?.startDate){
-            query = query.andWhere('period.endDate >= :startDate', {startDate:options.startDate})
+        if (options?.endDate) {
+            query = query.andWhere('period.startDate <= :endDate', {endDate: options.endDate});
+        }
+        if (options?.categoryId) {
+            query = query.andWhere('period.categoryId = :catId', {catId: options.categoryId});
         }
         const allPeriods: Period[] = await query.getMany();
-        console.log(allPeriods)
-        const mustIgnoredId = options?.ignorePeriodId;
-        return mustIgnoredId 
-                ? allPeriods.filter(period => period.id !== options.ignorePeriodId)
-                : allPeriods;
+        // return allPeriods.filter(period => !options?.ignorePeriodId || period.id !== options.ignorePeriodId);
+        const mustIgnoreId = options?.ignorePeriodId;
+        return mustIgnoreId 
+            ? allPeriods.filter(period => period.id !== options.ignorePeriodId)
+            : allPeriods;
     }
-
+    
     async readOne(id: number): Promise<Period> {
-        const Period: Period = await this.periodsRepository.findOne(id);
-        if(!Period) {
-            throw new HttpException("Period not found", HttpStatus.NOT_FOUND)
+        const period: Period = await this.periodRepository.findOne(id);
+        if (!period) {
+            throw new HttpException('Period not found', HttpStatus.NOT_FOUND);
         }
-        return Period;
+        return period;
     }
 
     async create(periodDto: PeriodDto): Promise<Period> {
-        const existingPeriod: Period[] = await this.searchAll(
-            {
-                startDate: periodDto.startDate,
-                endDate: periodDto.endDate,
-                categoryId: periodDto.categoryId
-            }
-        );
-        if(existingPeriod.length > 0) {
-            throw new HttpException('Periods must not overlap', HttpStatus.CONFLICT);
+        const existingPeriods: Period[] = await this.searchAll({
+            startDate: periodDto.startDate, 
+            endDate: periodDto.endDate,
+            categoryId: periodDto.categoryId
+        });
+        if (existingPeriods.length > 0) {
+            throw new HttpException('Periods must not overlap.', HttpStatus.CONFLICT);
         }
-        const insertResult: InsertResult =  await this.periodsRepository.insert(periodDto);
-        console.log(insertResult.identifiers);
-        const insertId = insertResult.identifiers[0].id;
-        return this.periodsRepository.findOne(insertId);
+        const insertResult: InsertResult = await this.periodRepository.insert(periodDto);
+        const insertedId = insertResult.identifiers[0].id;
+        return this.periodRepository.findOne(insertedId);
     }
 
-    async update(id: number, periodDto: PeriodDto): Promise<void>{
-        const existingPeriod: Period[] = await this.searchAll(
-            {
-                startDate: periodDto.startDate,
-                endDate: periodDto.endDate,
-                categoryId: periodDto.categoryId,
-                ignorePeriodId: id
-            }
-        );
-        if(existingPeriod.length > 0) {
-            throw new HttpException('Periods must not overlap', HttpStatus.CONFLICT);
+    async update(id: number, periodDto: PeriodDto): Promise<void> {
+        const existingPeriods: Period[] = await this.searchAll({
+            startDate: periodDto.startDate, 
+            endDate: periodDto.endDate,
+            categoryId: periodDto.categoryId,
+            ignorePeriodId: id,
+        });
+        if (existingPeriods.length > 0) {
+            throw new HttpException('Periods must not overlap.', HttpStatus.CONFLICT);
         }
-        const result = await this.periodsRepository.update(id, periodDto)
-        if(result.affected === 0 ){
-            throw new HttpException("Period not found", HttpStatus.NOT_FOUND)
+        const updateResult: UpdateResult = await this.periodRepository.update(id, periodDto);
+        if (updateResult.affected === 0) {
+            throw new HttpException('Period not found', HttpStatus.NOT_FOUND);
         }
     }
 
-    async delete(id: number): Promise<void>{
-        const result  = await this.periodsRepository.delete(id);
-        if(result.affected === 0) {
+    async delete(id: number): Promise<void> {
+        const deleteResult: DeleteResult
+            = await this.periodRepository.delete(id);
+        if (deleteResult.affected === 0) {
             throw new HttpException('Period not found', HttpStatus.NOT_FOUND);
         }
     }

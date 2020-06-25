@@ -18,7 +18,7 @@ export class Category{
     description: string
 
     @Column()
-    person: number;
+    persons: number;
 
     @Column({type: "jsonb", nullable: true})
     data: CategoryData;
