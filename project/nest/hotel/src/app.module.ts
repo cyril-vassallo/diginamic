@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Category } from './categories/category.entity';
-import { CategoriesModule } from './categories/categories.module';
-import { PeriodsModule } from './periods/periods.module';
-import { Period } from './periods/period.entity';
+import { Category } from './shared/categories/category.entity';
+import { Period } from './shared/periods/period.entity';
+import { AdminModule } from './admin/admin.module';
 
 
 @Module({
@@ -16,7 +15,7 @@ import { Period } from './periods/period.entity';
     database: "hoteldb",
     entities: [Category, Period],
     synchronize:true
-  }), CategoriesModule, PeriodsModule],
+  }), AdminModule],
   controllers: [],
   providers: [],
 })

@@ -1,5 +1,5 @@
 import { Column, PrimaryGeneratedColumn, JoinColumn,ManyToOne, Entity } from "typeorm";
-import { Category } from "src/categories/category.entity";
+import { Category } from "src/shared/categories/category.entity";
 
 
 export class PeriodData {

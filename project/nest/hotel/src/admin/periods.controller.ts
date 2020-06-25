@@ -14,9 +14,9 @@ import {
 	ValidationPipe,
 	HttpException,
 } from '@nestjs/common';
-import { PeriodsService } from './periods.service';
-import { Period } from './period.entity';
-import { PeriodDto } from './period.dto';
+import { PeriodsService } from '../shared/periods/periods.service';
+import { Period } from '../shared/periods/period.entity';
+import { PeriodDto } from '../shared/periods/period.dto';
 import { ApiQuery } from '@nestjs/swagger';
 
 @Controller('admin/periods')
