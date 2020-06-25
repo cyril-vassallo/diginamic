@@ -1,9 +1,9 @@
-  
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult, UpdateResult, InsertResult } from 'typeorm';
 import { Period } from './period.entity';
 import { PeriodDto } from './period.dto';
+
 
 @Injectable()
 export class PeriodsService {

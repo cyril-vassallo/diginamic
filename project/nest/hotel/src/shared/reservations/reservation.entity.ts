@@ -1,18 +1,23 @@
-import { Entity, Column, ManyToOne, JoinColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
 import { Category } from "../categories/category.entity";
 
-
-export class ReservationData {
+export class ReservationCustomerData {
     firstName: string;
     lastName: string;
     phone: string;
     email: string;
     address: {
-        street: string;
-        zipCode: string;
-        city: string;
-        country: string;
-    }
+      street: string;
+      zipcode: string;
+      city: string;
+      country: string;
+    };  
+}
+export class ReservationData {
+    nights: number;
+    price: number;
+    persons: number;
+    customer: ReservationCustomerData;  
 }
 
 @Entity()
@@ -21,21 +26,20 @@ export class Reservation {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({name : 'category_id'})
+    @Column({ name: 'category_id' })
     categoryId: number;
 
-    @ManyToOne(target => Category) 
-    @JoinColumn({name: 'category_id'})
-    category: Category
+    @ManyToOne(type => Category)
+    @JoinColumn({ name: 'category_id' })
+    category: Category;
 
-    @Column({name: 'start_name', type: 'date'})
-    startDate:string;
+    @Column({name: 'start_date', type: 'date'})
+    startDate: string; // '2020-06-24'
 
-    @Column({name: 'end_name', type: 'date'})
-    endDate:string;
+    @Column({name: 'end_date', type: 'date'})
+    endDate: string; // '2020-06-24'
 
-    @Column({type: 'json'})
-    data: ReservationData;
-    
+    @Column({type: 'jsonb'})
+    data: ReservationData
 
 }

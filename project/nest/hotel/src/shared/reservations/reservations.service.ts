@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Reservation } from './reservation.entity';
 import { Repository } from 'typeorm';
@@ -8,6 +8,8 @@ import { Category } from '../categories/category.entity';
 import { Period } from '../periods/period.entity';
 import { DateUtil } from 'src/util/date.util';
 import { AvailabilityResultDto } from './availability-result.dto';
+import { ReservationDto } from './reservation.dto';
+import { v1 as uuidv1 } from 'uuid';
 
 @Injectable()
 export class ReservationsService {
@@ -44,12 +46,63 @@ export class ReservationsService {
             const max = (category.data?.rooms || []).length;
             const categoryReservations: Reservation[] = 
                 reservations.filter(resa => resa.categoryId === category.id);
+            const categoryPeriods: Period[] = 
+                periods.filter(period => period.categoryId === category.id);
             const available = this.checkAvailabilityEachDay(stay, categoryReservations, max);
-            const price = this.computePrice(stay, periods);
+            const price = this.computePrice(stay, categoryPeriods);
             return {category, available, price};
         });
         return {nights: DateUtil.computeNights(stay), list};
     }
+
+    async tryBooking(stay: Stay, persons: number, 
+                     categoryId: number, reservationDto: ReservationDto): Promise<Reservation> {
+        // Catégorie demandée
+        const category: Category = await this.categoriesSrv.readOne(categoryId);
+        if (category.persons < persons) {
+            throw new HttpException('Room too small.', 
+                                    HttpStatus.PRECONDITION_FAILED);
+        }
+        // Périodes de prix (de la catégorie demandée) qui chevauchent les dates du séjour
+        const categoryPeriods: Period[] = await this.periodsSrv.searchAll({...stay, categoryId});
+        // Réservations (de la catégorie demandée) qui chevauchent les dates du séjour
+        const categoryReservations: Reservation[] = await this.searchAll({...stay, categoryId});
+
+        const max = (category.data?.rooms || []).length;
+        const available = this.checkAvailabilityEachDay(stay, categoryReservations, max);
+        const price = this.computePrice(stay, categoryPeriods);
+        
+        if (available) {
+            const uuid = uuidv1();
+            const reservationData = {
+                nights: DateUtil.computeNights(stay),
+                price,
+                persons,
+                customer: reservationDto.customer 
+            };
+            return await this.reservationRepository.save({
+                categoryId, 
+                ...stay, 
+                code: uuid,
+                data: reservationData
+            });
+        } else {
+            throw new HttpException('No room left in this category.', 
+                                    HttpStatus.PRECONDITION_FAILED);
+        }
+    }
+
+    async delete(code: string): Promise<Reservation> {
+        const resa = await this.reservationRepository
+          .createQueryBuilder('reservation')
+          .where('reservation.code = :code', {code})
+          .getOne();
+        if (resa) {
+          return this.reservationRepository.remove(resa);
+        } else {
+          throw new HttpException('Reservation not found, code may be wrong.', HttpStatus.NOT_FOUND)
+        }
+      }
 
     private computePrice(stay: Stay, periods: Period[]) {
         let price = 0;
