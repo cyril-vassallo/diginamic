@@ -47,8 +47,7 @@ class Form extends Component {
       const reservation = await this.fd.postReservation(payload);
       this.displayReservation(reservation);
     } catch (error) {
-      console.log(error.message)
-      this.displayError(error.message);
+        this.displayError(error.message);
     }
   };
 
@@ -58,7 +57,7 @@ class Form extends Component {
         <form className="form" onSubmit={this.handleSubmit}>
           <h3 className="text-center">Reserver cet hotel</h3>
           <div className="container">
-            <div className="row from-group">
+            <div className="row from-group my-5">
               <div className="col-6">
                 <label className="form-control-label" htmlFor="start-date">
                   Date d'arrivée
@@ -93,7 +92,7 @@ class Form extends Component {
                     type="number"
                     min="1"
                     max="3"
-                    defaultValue={""}
+                    defaultValue={"1"}
                   />
               </div>
               <div className="col-6">

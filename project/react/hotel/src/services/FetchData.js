@@ -45,10 +45,11 @@ class FetchData {
                     }
                   }
             })
-        }).then(function (response) {
+        }).then(async(response) => {
             if (response.status !== 201) {
                 console.log('Post');
-                throw new Error("Erreur " + response.status);
+                const error = await response.json()
+                throw new Error("Erreur " + error.message);
             }
             return response.json();// teste si c'est bien du json
         })
