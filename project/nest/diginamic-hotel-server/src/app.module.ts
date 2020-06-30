@@ -16,7 +16,7 @@ import { AuthModule } from './auth/auth.module';
       username: 'hotel',
       password: 'hotel',
       database: 'hotel-react',
-      schema: 'hotel', //Choose a specfic schema (default: user name, then public)
+      schema: 'hotel', //Choose a specific schema (default: user name, then public)
       entities: [Category, Period, Reservation],
       synchronize: false,
     }),
