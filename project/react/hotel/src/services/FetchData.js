@@ -58,6 +58,24 @@ class FetchData {
             });
 
     }
+
+    deleteReservation = (code) => {
+        return fetch(`${this.url}booking/${code}`, {
+            credentials: this.credentials,
+            method: "DELETE",
+            headers: this.headers
+        }).then(function (response) {
+            if (response.status !== 200) {
+                throw new Error("Erreur " + response.status);
+            }
+            return response.json();// teste si c'est bien du json
+        })
+            .then(function (data) {
+                console.log('data : ', data);// J'ai ma donnée au format json
+                return data;
+            });
+
+    }
 }
 
 export default FetchData;

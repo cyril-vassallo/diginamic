@@ -28,6 +28,7 @@ class Reservations extends Component {
 
         this.setState(copy_state);
 
+
     }
     componentDidMount = async () => {
         // Tentative de récupération des données
@@ -60,21 +61,37 @@ class Reservations extends Component {
                             <th>Date de fin</th>
                             <th>Nb de personnes</th>
                             <th>Nb de nuits</th>
+                            <th></th>
                         </tr>
                     </thead>
-                    {this.state.reservations.map(reservation => {
-                        return (
-                            <tr key={reservation.id}>
-                                <td>{reservation.id}</td>
-                                <td>{reservation.categoryId}</td>
-                                <td>{reservation.startDate}</td>
-                                <td>{reservation.endDate}</td>
-                                <td>{reservation.data.persons}</td>
-                                <td>{reservation.data.nights}</td>
-                            </tr>
-                        )
+                    <tbody>
+                        {this.state.reservations.map(reservation => {
+                            return (
+                                <tr key={reservation.id}>
+                                    <td>{reservation.id}</td>
+                                    <td>{reservation.categoryId}</td>
+                                    <td>{reservation.startDate}</td>
+                                    <td>{reservation.endDate}</td>
+                                    <td>{reservation.data.persons}</td>
+                                    <td>{reservation.data.nights}</td>
+                                    <td><button className="btn btn-danger" type="button" onClick={() => {reservation.data.code}}>Supprimer</button></td>
+                                </tr>
+                            )
 
-                    })}
+                        })}
+
+                    </tbody>
+                    <tfoot className="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Catégorie</th>
+                            <th>Date de début</th>
+                            <th>Date de fin</th>
+                            <th>Nb de personnes</th>
+                            <th>Nb de nuits</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         );
