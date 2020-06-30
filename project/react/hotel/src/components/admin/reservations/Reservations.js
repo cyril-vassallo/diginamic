@@ -44,7 +44,7 @@ class Reservations extends Component {
     }
   };
 
-  handleDelete = async ({ target }) => {
+  handleClickDelete = async ({ target }) => {
     const code = target.getAttribute("data-code");
     target.parentNode.parentNode.remove();
     const deletedReservation = await this.fd.deleteReservation(code);
@@ -124,7 +124,7 @@ class Reservations extends Component {
                       data-code={reservation.code}
                       className="btn btn-danger"
                       type="button"
-                      onClick={this.handleDelete}
+                      onClick={this.handleClickDelete}
                     >
                       Supprimer
                     </button>
