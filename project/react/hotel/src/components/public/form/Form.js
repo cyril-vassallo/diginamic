@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import FetchData from "../../../services/FetchData";
-import Reservation from "./../reservation/Reservation";
-import Error from "./../error/Error"
+import Reservation from "./reservation/Reservation";
+import Error from "../../common/Error"
 
 
 

@@ -45,11 +45,15 @@ class Reservations extends Component {
   };
 
   handleClickDelete = async ({ target }) => {
-    const code = target.getAttribute("data-code");
-    target.parentNode.parentNode.remove();
-    const deletedReservation = await this.fd.deleteReservation(code);
-    this.displayMessage(deletedReservation);
-  };
+      try{
+          const code = target.getAttribute("data-code");
+          target.parentNode.parentNode.remove();
+          const deletedReservation = await this.fd.deleteReservation(code);
+          this.displayMessage(deletedReservation);
+      }catch(error){
+          console.log(error.message)
+      }
+  }
 
   displayMessage = (deletedReservation) => {
     console.log("Dans displayMessage ");
@@ -144,7 +148,7 @@ class Reservations extends Component {
               <th></th>
             </tr>
           </tfoot>
-        </table>
+        </table>    
       </div>
     );
   }

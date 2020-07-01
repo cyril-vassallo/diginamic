@@ -77,6 +77,23 @@ class FetchData {
             });
 
     }
+
+    getAvailable = ({start, end, persons}) => {
+        return fetch(`${this.url}​/booking​/available?start=${start}&end=${end}&persons=${persons}`, {
+            credentials: this.credentials,
+            method: "GET",
+            header: this.headers
+        }).then(function (response ) {
+           if(response != 200){
+                throw new Error("Erreur" + response.status);
+           }
+           return response.json();
+        }).then(function(data) {
+            console.log('data: ', data);
+            return data;
+        })
+
+    }
 }
 
 export default FetchData;
