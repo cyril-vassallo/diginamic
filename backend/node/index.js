@@ -7,6 +7,7 @@ const {URL} = require('url');
 const ResponseWriter = require('./ResponseWriter');
 // ou 
 // const {ResponseWriter} = require('./ResponseWriter');
+//const ResponseWriter = require('./ResponseWriter').responseWriter;
 
 const requestHandler = (req, res) => {
   const reqUrl = new URL(req.url, `http://${req.headers.host}`);
