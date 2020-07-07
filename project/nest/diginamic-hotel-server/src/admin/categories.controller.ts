@@ -3,8 +3,9 @@ import { Category } from '../shared/categories/category.entity';
 import { CategoriesService } from '../shared/categories/categories.service';
 import { CategoryDto } from '../shared/categories/category.dto';
 import { PassportBasicGuard } from 'src/auth/passport-basic.guard';
-import { ApiSecurity } from '@nestjs/swagger';
+import { ApiSecurity, ApiTags, ApiBody  } from '@nestjs/swagger';
 
+@ApiTags('Categories')
 @Controller('admin/categories')
 @UsePipes(new ValidationPipe({whitelist: true, forbidNonWhitelisted: true, transform: true}))
 @UseGuards(PassportBasicGuard)
@@ -24,6 +25,7 @@ export class CategoriesController {
         return this.categoriesSrv.readOne(id);
     }
 
+    
     @Post()
     create(@Body() categoryDto: CategoryDto): Promise<Category> {
         return this.categoriesSrv.create(categoryDto);

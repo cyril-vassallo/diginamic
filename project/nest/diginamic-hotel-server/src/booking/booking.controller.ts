@@ -3,7 +3,10 @@ import { ReservationsService, Stay } from 'src/shared/reservations/reservations.
 import { AvailabilityResultDto } from 'src/shared/reservations/availability-result.dto';
 import { ReservationDto } from 'src/shared/reservations/reservation.dto';
 import { Reservation } from 'src/shared/reservations/reservation.entity';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('Booking')
 @Controller('booking')
 export class BookingController {
 

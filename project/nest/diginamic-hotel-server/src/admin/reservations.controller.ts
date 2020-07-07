@@ -3,8 +3,9 @@ import { ApiQuery } from '@nestjs/swagger';
 import { Reservation } from 'src/shared/reservations/reservation.entity';
 import { ReservationsService } from 'src/shared/reservations/reservations.service';
 import { PassportBasicGuard } from 'src/auth/passport-basic.guard';
-import { ApiSecurity } from '@nestjs/swagger';
+import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Reservations') 
 @Controller('admin/reservations')
 @UseGuards(PassportBasicGuard)
 @ApiSecurity('basic')

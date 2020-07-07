@@ -4,8 +4,9 @@ import { PeriodsService } from '../shared/periods/periods.service';
 import { PeriodDto } from '../shared/periods/period.dto';
 import { ApiQuery } from '@nestjs/swagger';
 import { PassportBasicGuard } from 'src/auth/passport-basic.guard';
-import { ApiSecurity } from '@nestjs/swagger';
+import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Periods')
 @Controller('admin/periods')
 @UsePipes(new ValidationPipe({whitelist: true, forbidNonWhitelisted: true, transform: true}))
 @UseGuards(PassportBasicGuard)

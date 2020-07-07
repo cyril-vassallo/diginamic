@@ -12,9 +12,12 @@ async function bootstrap() {
       scheme: 'basic',
     })
     .setTitle('Hotel')
-    .setDescription('Hotel API description')
+    .setDescription('This is an api Booking')
     .setVersion('1.0')
-    .addTag('hotel')
+    .addTag('Reservations')
+    .addTag('Categories')
+    .addTag('Periods')
+    .addTag('Booking')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
